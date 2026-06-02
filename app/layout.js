@@ -39,8 +39,6 @@ export const viewport = {
   maximumScale: 1,
 };
 
-import CursorEffect from '../components/CursorEffect';
-
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider appearance={{
@@ -48,7 +46,6 @@ export default function RootLayout({ children }) {
     }}>
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
-          <CursorEffect />
           {children}
         </body>
       </html>

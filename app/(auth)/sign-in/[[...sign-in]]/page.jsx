@@ -1,19 +1,9 @@
 "use client";
-import { useState } from "react";
 import { SignIn } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Page() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Email:", email, "Password:", password);
-    // Call your API or Clerk backend auth here
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
@@ -39,7 +29,11 @@ export default function Page() {
               headerSubtitle: "hidden"
             }
           }}
-
+          routing="path"
+          path="/sign-in"
+          signUpUrl="/sign-up"
+          forceRedirectUrl="/dashboard"
+          fallbackRedirectUrl="/dashboard"
         />
 
         <p className="text-sm text-center text-gray-500 mt-4">

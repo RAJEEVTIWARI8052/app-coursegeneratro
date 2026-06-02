@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { FaHome, FaHistory, FaPowerOff } from "react-icons/fa";
 import { BsStack } from "react-icons/bs";
 import { IoShieldCheckmark } from "react-icons/io5";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, SignOutButton } from "@clerk/nextjs";
 import { Progress } from "../../../components/progress"
 import UserCourseListContext from '../../_context/UserCourseListContext';
 import { cn } from '../../../lib/utils';
@@ -72,21 +72,31 @@ function Sidebar({ closeSidebar }) {
             <ul className="space-y-3 flex-1 p-5">
                 {Menu.map((item) => {
                     const isActive = pathname === item.path;
+                    const content = (
+                        <div className={cn(
+                            "flex items-center gap-4 cursor-pointer rounded-2xl p-3.5 transition-all duration-500 card-hover w-full",
+                            isActive && item.title !== 'Logout'
+                                ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-[0_8px_20px_-6px_rgba(236,72,153,0.5)] border border-white/20 scale-[1.02]"
+                                : "text-gray-400 dark:text-gray-300 hover:bg-white/10 dark:hover:bg-white/10 hover:text-white border border-transparent"
+                        )}>
+                            <div className={cn("text-xl transition-transform duration-300", isActive && item.title !== 'Logout' && "scale-110")}>
+                                {item.icon}
+                            </div>
+                            <h2 className="text-[15px] font-bold tracking-wide">{item.title}</h2>
+                        </div>
+                    );
+
                     return (
                         <li key={item.id}>
-                            <Link href={item.path} onClick={() => closeSidebar && closeSidebar()}>
-                                <div className={cn(
-                                    "flex items-center gap-4 cursor-pointer rounded-2xl p-3.5 transition-all duration-500 card-hover",
-                                    isActive
-                                        ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-[0_8px_20px_-6px_rgba(236,72,153,0.5)] border border-white/20 scale-[1.02]"
-                                        : "text-gray-400 dark:text-gray-300 hover:bg-white/10 dark:hover:bg-white/10 hover:text-white border border-transparent"
-                                )}>
-                                    <div className={cn("text-xl transition-transform duration-300", isActive && "scale-110")}>
-                                        {item.icon}
-                                    </div>
-                                    <h2 className="text-[15px] font-bold tracking-wide">{item.title}</h2>
-                                </div>
-                            </Link>
+                            {item.title === 'Logout' ? (
+                                <SignOutButton redirectUrl="/">
+                                    {content}
+                                </SignOutButton>
+                            ) : (
+                                <Link href={item.path} onClick={() => closeSidebar && closeSidebar()}>
+                                    {content}
+                                </Link>
+                            )}
                         </li>
                     )
                 })}

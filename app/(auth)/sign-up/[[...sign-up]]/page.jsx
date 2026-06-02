@@ -19,8 +19,10 @@ export default function Page() {
               card: "shadow-none",
             },
           }}
-          redirectUrl="/dashboard"
+          routing="path"
+          path="/sign-up"
           signInUrl="/sign-in"
+          forceRedirectUrl="/dashboard"
           fallbackRedirectUrl="/dashboard"
         />
         <p className="text-sm text-center text-gray-500 mt-4">
