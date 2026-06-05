@@ -3,7 +3,8 @@
   "appName": "Rverse AI",
   "webDir": "public",
   "server": {
-    "url": "https://your-vercel-domain.vercel.app",
-    "cleartext": true
+    "url": "http://10.29.41.154:3000",
+    "cleartext": true,
+    "androidScheme": "http"
   }
 }
